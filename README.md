@@ -13,7 +13,8 @@ Example: you have a list of IP designations that look like:
 10.148.12.25  
 10.148.12.26  
 
-Read the text file (or multiple files in from a directory):  
+
+Give the script the path containing your text file(s):  
 C:/Python37/python.exe IPConverter.py C:/Users/danisac/Documents/iptest/
 
 your output will be:  
