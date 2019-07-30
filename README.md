@@ -13,10 +13,10 @@ Example: you have a list of IP designations that look like:
 10.148.12.25  
 10.148.12.26  
 
-Read the text file (or multiple files in from a directory):
+Read the text file (or multiple files in from a directory):  
 C:/Python37/python.exe IPConverter.py C:/Users/danisac/Documents/iptest/
 
-your output will be:
+your output will be:  
 10.148.11.0  
 10.148.11.1  
 10.148.11.2  
