@@ -51,6 +51,6 @@ def readFiles(my_dir):
 
 if __name__ == '__main__':
     if "-h" in sys.argv or "--help" in sys.argv or "--h" in sys.argv or "-help" in sys.argv:
-        print("Script takes a file path containing Asset lists in .txt format ex: python IPConvert.py C:\\users\\UserName\\assets.txt ")
+        print("Script takes a file path containing IP lists in .txt format ex: python IPConvert.py C:\\users\\UserName\\ ")
     else:
         main(sys.argv[1])
