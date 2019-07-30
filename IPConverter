@@ -1,0 +1,56 @@
+#!/bin/python
+from __future__ import absolute_import
+from __future__ import print_function
+from netaddr import *
+import glob
+import os
+import re
+import sys
+
+def main(my_dir):
+    # my_dir = input("Please enter the directory containing the files you want to process (ex: c:\\users\\UserName\\hashes.txt): ")
+    # print("You said: " + my_dir)
+    print()
+    if os.path.isdir(my_dir) == True:
+        readFiles(my_dir)
+    else:
+        print("Path does not exist... check syntax and try again")
+
+
+def readFiles(my_dir):
+    files = glob.glob(my_dir + '\*.txt')
+    ipList = []
+    for file in files:
+        try:
+            with open(file) as f:
+                lines = set(f.read().splitlines())
+                for line in lines:
+                    cleanline = line.strip()
+                    if re.match(r"^(\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b$)", cleanline):
+                            ipInt = int(IPAddress(cleanline))
+                            ipList.append(ipInt)
+                    elif re.match(r"^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$", cleanline):
+                            #print("Your CIDR is: " + cleanline)
+                            for ip in IPNetwork(cleanline):
+                                cidrInt = int(IPAddress(ip))
+                                ipList.append(cidrInt)
+                    elif re.match(r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b(-(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))$", cleanline):
+                            #print("Your range is: " + cleanline)
+                            split = re.split(r'\s|-', cleanline)
+                            for ip in IPRange(split[0], split[1]):
+                                rangeInt = int(IPAddress(ip))
+                                ipList.append(rangeInt)
+                    else:
+                        print("Not a valid IP, Range, or CIDR")
+        except IOError:
+            print("Cant open files")
+    ipList.sort()
+    for i in ipList:
+        print(str(IPAddress(i)))
+        #print(*ipList, sep="\n")
+
+if __name__ == '__main__':
+    if "-h" in sys.argv or "--help" in sys.argv or "--h" in sys.argv or "-help" in sys.argv:
+        print("Script takes a file path containing Asset lists in .txt format ex: python IPConvert.py C:\\users\\UserName\\assets.txt ")
+    else:
+        main(sys.argv[1])
