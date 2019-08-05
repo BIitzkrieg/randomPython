@@ -15,7 +15,7 @@ Example: you have a list of IP designations that look like:
 
 
 Give the script the path containing your text file(s):  
-C:/Python37/python.exe IPConverter.py C:/Users/danisac/Documents/iptest/
+C:/Python37/python.exe IPConverter.py C:/Users/user/Documents/iptest/
 
 your output will be:  
 10.148.11.0  
